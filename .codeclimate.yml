@@ -1,0 +1,28 @@
+engines:
+  fixme:
+    enabled: true
+
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - php
+
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_exstensions: "php"
+      standard: "phpcs.xml"
+
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php"
+      rulesets: "phpmd.xml"
+
+ratings:
+  paths:
+    - "**.php"
+
+exclude_paths:
+  - "mollie/vendor/"

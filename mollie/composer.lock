@@ -1,0 +1,187 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "98bf410bbc6022946c4fdd8ee71e19a1",
+    "content-hash": "98e1e8029a80502f7dc6714768b6277f",
+    "packages": [
+        {
+            "name": "cloudstek/mollie-php-api",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cloudstek/mollie-php-api.git",
+                "reference": "e4ab7655f8cb5611933aebb02e58b777801686d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cloudstek/mollie-php-api/zipball/e4ab7655f8cb5611933aebb02e58b777801686d0",
+                "reference": "e4ab7655f8cb5611933aebb02e58b777801686d0",
+                "shasum": ""
+            },
+            "require": {
+                "lib-curl": "*",
+                "lib-openssl": "*",
+                "nategood/httpful": "^0.2.20",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.3.2",
+                "phpunit/phpunit": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mollie\\API\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudstek",
+                    "email": "info@cloudstek.nl"
+                }
+            ],
+            "description": "Mollie API client library for PHP",
+            "homepage": "https://github.com/cloudstek/mollie-php-api",
+            "keywords": [
+                "api",
+                "bancontact",
+                "banktransfer",
+                "belfius",
+                "belfius direct net",
+                "bitcoin",
+                "charges",
+                "client",
+                "creditcard",
+                "direct debit",
+                "gateway",
+                "ideal",
+                "mistercash",
+                "mollie",
+                "ondemand",
+                "payment",
+                "payments",
+                "paypal",
+                "paysafecard",
+                "podiumcadeaukaart",
+                "recurring",
+                "refunds",
+                "sepa",
+                "service",
+                "sofort",
+                "sofortbanking",
+                "subscriptions"
+            ],
+            "time": "2016-11-14 16:29:38"
+        },
+        {
+            "name": "nategood/httpful",
+            "version": "0.2.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nategood/httpful.git",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nategood/httpful/zipball/c1cd4d46a4b281229032cf39d4dd852f9887c0f6",
+                "reference": "c1cd4d46a4b281229032cf39d4dd852f9887c0f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Httpful": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nate Good",
+                    "email": "me@nategood.com",
+                    "homepage": "http://nategood.com"
+                }
+            ],
+            "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+            "homepage": "http://github.com/nategood/httpful",
+            "keywords": [
+                "api",
+                "curl",
+                "http",
+                "requests",
+                "rest",
+                "restful"
+            ],
+            "time": "2015-10-26 16:11:30"
+        },
+        {
+            "name": "wukka/nonce",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wukka/Nonce.git",
+                "reference": "07b82de6a9be0e98eaf640573c95ef586378be4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wukka/Nonce/zipball/07b82de6a9be0e98eaf640573c95ef586378be4d",
+                "reference": "07b82de6a9be0e98eaf640573c95ef586378be4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "wukka/test": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Wukka\\Nonce": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Loehrer",
+                    "email": "72squared@gmail.com",
+                    "homepage": "http://www.linkedin.com/pub/john-loehrer/10/439/9b6",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Nonce - token generator to prevent unauthorized access.",
+            "time": "2013-08-06 17:01:08"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "wukka/nonce": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.6"
+    },
+    "platform-dev": []
+}

@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mollie Payment Gateway\n"
+"POT-Creation-Date: 2016-11-21 22:47+0100\n"
+"PO-Revision-Date: 2016-11-21 22:47+0100\n"
+"Last-Translator: \n"
+"Language-Team: Cloudstek <info@cloudstek.nl>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _;__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: mollie/vendor\n"
+
+#: mollie.php:55
+msgid "Mollie Live API Key"
+msgstr "Mollie Live API Sleutel"
+
+#: mollie.php:58
+msgid "Please enter your live API key."
+msgstr "Voer uw live API sleutel in."
+
+#: mollie.php:61
+msgid "Mollie Test API Key"
+msgstr "Mollie Test API Sleutel"
+
+#: mollie.php:64
+msgid "Please enter your test API key."
+msgstr "Voer uw test API sleutel in."
+
+#: mollie.php:67
+msgid "Sandbox Mode"
+msgstr "Sandbox Modus"
+
+#: mollie.php:72
+msgid ""
+"Enable sandbox mode with test API key. No real transactions will be made."
+msgstr ""
+"Schakel sandbox modus in met de test API sleutel. Er worden geen echte "
+"transacties gedaan."
+
+#: mollie/AdminStatus.php:65
+msgid "Please enter your API key(s) to use this payment gateway."
+msgstr "Voer uw API sleutel(s) in om deze gateway te gebruiken."
+
+#: mollie/AdminStatus.php:85
+msgid ""
+"There is a payment pending for this invoice. Status will be automatically "
+"updated once a confirmation is received from Mollie."
+msgstr ""
+"Er is een betaling in behandeling voor deze factuur. Status zal automatisch "
+"bijgewerkt worden zodra een bevestiging is ontvangen van Mollie."
+
+#: mollie/AdminStatus.php:97
+msgid ""
+"Automatic payment for this invoice has failed. Please check the gateway logs "
+"for details."
+msgstr ""
+"Automatisch incasso voor deze factuur is niet gelukt. Bekijk het gateway "
+"logboek voor meer details."
+
+#: mollie/Link.php:93
+msgid "Your payment is currently pending and will be processed automatically."
+msgstr ""
+"Uw betaling is momenteel in behandeling en zal automatisch worden verwerkt."
+
+#: mollie/Link.php:141
+msgid ""
+"This payment gateway is currently disabled. Please contact the administrator."
+msgstr ""
+"Deze betalingsmogelijkheid is momenteel niet beschikbaar. Neemt u a.u.b. "
+"contact op met de beheerder."
+
+#: mollie/Link.php:209 mollie/Link.php:216
+msgid ""
+"Error occurred, please select a different payment method or try again later."
+msgstr ""
+"Er is een fout opgetreden, selecteer a.u.b. een andere betalingsmogelijkheid "
+"of probeer het later nogmaals."
+
+#~ msgid "Please enter your license key to use this payment gateway."
+#~ msgstr ""
+#~ "Vul a.u.b. uw licentie code in om deze betalingsmogelijkheid te gebruiken."
+
+#~ msgid "License Key"
+#~ msgstr "Licentiecode"
+
+#~ msgid "Please enter your license key."
+#~ msgstr "Voer uw licentiecode in."
+
+#~ msgid "Callback URL"
+#~ msgstr "Callback URL"
+
+#~ msgid ""
+#~ "(optional) Full url (including http:// or https://) to the callback "
+#~ "script. Leave empty to auto-detect."
+#~ msgstr "(optioneel) Volledige URL"
+
+#~ msgid "Compatibility Mode"
+#~ msgstr "Compatibiliteitsmodus"
+
+#~ msgid ""
+#~ "Check this box if you if you find a conflict with another payment gateway."
+#~ msgstr ""
+#~ "Vink deze optie aan als er conflicten optreden met andere "
+#~ "betalingsgateways."
+
+#~ msgid ""
+#~ "Authorization for automatic payments is missing, please refresh the page "
+#~ "to set up automatic payments."
+#~ msgstr ""
+#~ "Autorisatie voor automatisch incasso ontbreekt, ververs de pagina om "
+#~ "automatisch incasso in te kunnen schakelen."
+
+#~ msgid ""
+#~ "Automatic payments via Direct Debit or another payment method are already "
+#~ "configured for this invoice. You will receive an email once you have been "
+#~ "billed."
+#~ msgstr "Automatisch incasso "
+
+#~ msgid "Automatic payments have not been set up by the client."
+#~ msgstr "Automatisch incasso is niet ingesteld door de klant."
+
+#~ msgid ""
+#~ "Your payment is currently pending and will be processed within 3-5 days."
+#~ msgstr ""
+#~ "Uw betaling is in behandeling en zal binnen 3-5 dagen verwerkt worden."
+
+#~ msgid ""
+#~ "There is a pending payment already in processing for this invoice. Status "
+#~ "will be automatically updated once confirmation is received back from "
+#~ "Mollie."
+#~ msgstr ""
+#~ "Er is al een betaling in behandeling voor deze factuur. Status zal "
+#~ "automatisch bijgewerkt worden wanneer een bevestiging is ontvangen van "
+#~ "Mollie."
+
+#~ msgid ""
+#~ "Authorization for automatic payments is missing, please refresh the page "
+#~ "to set-up automatic payments."
+#~ msgstr ""
+#~ "Autorisatie voor automatisch incasso ontbreekt, ververs a.u.b. de pagina "
+#~ "om opnieuw te autoriseren."

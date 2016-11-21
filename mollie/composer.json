@@ -1,0 +1,26 @@
+{
+    "name": "cloudstek/whmcs-mollie-payment-gateway",
+    "description": "Mollie payment gateway for WHMCS",
+    "version": "1.0.0",
+    "homepage": "https://github.com/cloudstek/whmcs-mollie-payment-gateway",
+    "license": "BSD-2-Clause",
+
+    "authors": [
+        {
+            "name": "Cloudstek",
+            "email": "info@cloudstek.nl"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Cloudstek\\WHMCS\\Mollie\\": "."
+        }
+    },
+
+    "require": {
+        "php": ">=5.6",
+        "cloudstek/mollie-php-api": "^2.0.0",
+        "wukka/nonce": "dev-master"
+    }
+}
