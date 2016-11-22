@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Mollie Payment Gateway
  * @version 1.0.0
@@ -35,17 +34,17 @@ function mollie_config()
 {
     global $_LANG;
 
-    // Set locale
+    // Set locale.
     putenv('LC_ALL='. $_LANG['locale']);
     setlocale(LC_ALL, $_LANG['locale']);
 
-    // Text domain
+    // Text domain.
     $textDomain = 'MolliePaymentGateway';
 
-    // Bind text domain
+    // Bind text domain.
     bindtextdomain($textDomain, __DIR__ . '/mollie/lang');
 
-    // Visible options
+    // Visible options.
     return array(
         'FriendlyName'  => array(
             'Type'  => 'System',
@@ -79,10 +78,10 @@ function mollie_config()
  * Refund transaction
  *
  * @see mollie/Refund.php
- * @param array $params Payment Gateway Module Parameters
+ * @param array $params Refund parameters.
  * @return array
  */
-function mollie_refund($params)
+function mollie_refund(array $params)
 {
     return (new MollieRefund($params))->run();
 }
@@ -91,10 +90,10 @@ function mollie_refund($params)
  * Invoice page payment form output
  *
  * @see mollie/Link.php
- * @param array $params
+ * @param array $params Link parameters.
  * @return string|null
  */
-function mollie_link($params)
+function mollie_link(array $params)
 {
     return (new MollieLink($params))->run();
 }
@@ -103,10 +102,10 @@ function mollie_link($params)
  * Display admin message
  *
  * @see mollie/AdminStatus.php
- * @param array $params
+ * @param array $params Admin status message parameters.
  * @return array|null
  */
-function mollie_adminstatusmsg($params)
+function mollie_adminstatusmsg(array $params)
 {
     return (new MollieAdminStatus($params))->run();
 }

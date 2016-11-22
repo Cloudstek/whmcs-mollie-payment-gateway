@@ -12,6 +12,13 @@
     <!-- PSR 2 -->
     <rule ref="PSR2"/>
 
+    <!-- Comments -->
+    <rule ref="Squiz.Commenting">
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment" />
+        <exclude name="Squiz.Commenting.FileComment" />
+        <exclude name="Squiz.Commenting.LongConditionClosingComment" />
+    </rule>
+
     <!-- PHPCompatibility -->
     <config name="installed_paths" value="mollie/vendor/frenck/php-compatibility" />
     <config name="testVersion" value="5.3-7.1"/>

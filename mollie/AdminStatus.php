@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Mollie Payment Gateway
  * @version 1.0.0
@@ -9,7 +8,6 @@ namespace Cloudstek\WHMCS\Mollie;
 
 /**
  * Admin status message action
- * @see ActionBase.php
  */
 class AdminStatus extends ActionBase
 {
@@ -21,13 +19,13 @@ class AdminStatus extends ActionBase
 
     /**
      * Admin status message action constructor
-     * @param array $params
+     * @param array $params Admin status message parameters.
      */
     public function __construct(array $params)
     {
         parent::__construct($params);
 
-        // Invoice data
+        // Invoice data.
         $this->invoiceId = $this->actionParams['invoiceid'];
         $this->invoiceStatus = $this->actionParams['status'];
     }
@@ -35,9 +33,9 @@ class AdminStatus extends ActionBase
     /**
      * Generate status message
      *
-     * @param string $status
-     * @param string $message Status message
-     * @param string|null $title Status message title
+     * @param string      $status  Status message type.
+     * @param string      $message Status message content.
+     * @param string|null $title   Status message title.
      * @return array
      */
     private function statusMessage($status, $message, $title = null)
@@ -55,7 +53,7 @@ class AdminStatus extends ActionBase
      */
     public function run()
     {
-        // Initialize
+        // Initialize.
         if (!$this->initialize()) {
             return $this->statusMessage(
                 'error',
@@ -63,17 +61,17 @@ class AdminStatus extends ActionBase
             );
         }
 
-        // Check for pending transaction
+        // Check for pending transaction.
         if ($this->invoiceStatus == "Unpaid") {
-            // Get customer ID
+            // Get customer ID.
             $customerId = $this->getCustomerId($this->actionParams['userid']);
 
-            // Check for customer ID
+            // Check for customer ID.
             if (!$customerId) {
                 return;
             }
 
-            // Check for pending transactions
+            // Check for pending transactions.
             if ($this->hasPendingTransactions($this->invoiceId)) {
                 return $this->statusMessage(
                     'info',
@@ -85,7 +83,7 @@ class AdminStatus extends ActionBase
                 );
             }
 
-            // Check for failed transactions
+            // Check for failed transactions.
             if ($this->hasFailedTransactions($this->invoiceId)) {
                 return $this->statusMessage(
                     'error',

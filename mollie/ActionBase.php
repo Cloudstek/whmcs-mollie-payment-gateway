@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Mollie Payment Gateway
  * @version 1.0.0
@@ -32,20 +31,20 @@ abstract class ActionBase
 
     /**
      * Action constructor
-     * @param array $params Action parameters
+     * @param array $params Action parameters.
      */
     protected function __construct(array $params)
     {
         global $whmcs;
 
-        // Parameters
+        // Parameters.
         $this->actionParams = $params;
         $this->gatewayParams = getGatewayVariables('mollie');
 
-        // WHMCS version
+        // WHMCS version.
         $this->whmcsVersion = $whmcs->get_config('Version');
 
-        // Sandbox mode
+        // Sandbox mode.
         $this->sandbox = $this->gatewayParams['sandbox'] == 'on';
     }
 
@@ -55,13 +54,13 @@ abstract class ActionBase
      * WHMCS v6 uses an older version of Eloquent. In v7 it has been replaced by a newer version which deprecates pluck
      * and causes different behaviour. Instead value is used, which does the same as the old pluck method.
      *
-     * @param QueryBuilder $query
-     * @param string $column
+     * @param QueryBuilder $query  Query to execute.
+     * @param string       $column Column to get the value from.
      * @return mixed
      */
     protected function pluck(QueryBuilder $query, $column)
     {
-        // WHMCS 6.0
+        // WHMCS 6.0.
         if (version_compare($this->whmcsVersion, '7.0.0', '<')) {
             return $query->pluck($column);
         }
@@ -72,7 +71,7 @@ abstract class ActionBase
     /**
      * Get Mollie customer ID for WHMCS client
      *
-     * @param int $clientId WHMCS client ID
+     * @param integer $clientId WHMCS client ID.
      * @return string|bool Mollie customer ID or false if none defined
      */
     protected function getCustomerId($clientId)
@@ -99,8 +98,9 @@ abstract class ActionBase
     /**
      * Set Mollie customer ID for WHMCS client
      *
-     * @param int $clientId WHMCS client ID
-     * @param string $customerId Mollie customer ID
+     * @param integer $clientId   WHMCS client ID.
+     * @param string  $customerId Mollie customer ID.
+     * @return void
      */
     protected function setCustomerId($clientId, $customerId)
     {
@@ -108,7 +108,7 @@ abstract class ActionBase
                     ->where('clientid', $clientId)
                     ->count();
 
-        // Update customer ID
+        // Update customer ID.
         if ($exists) {
             Capsule::table('mod_mollie_customers')
                 ->where('clientid', $clientId)
@@ -119,7 +119,7 @@ abstract class ActionBase
             return;
         }
 
-        // Insert customer ID
+        // Insert customer ID.
         Capsule::table('mod_mollie_customers')
             ->insert(array(
                 'clientid' => $clientId,
@@ -129,26 +129,26 @@ abstract class ActionBase
 
     /**
      * Get full URL to callback for use by the Mollie webhookUrl parameter
-     * @return string
+     * @return string|null
      */
     protected function getWebhookUrl()
     {
         global $CONFIG;
 
-        // Get WHMCS URL
+        // Get WHMCS URL.
         $whmcsUrl = $CONFIG['SystemURL'];
 
-        // WHMCS 6.0 compat SSL URL
+        // WHMCS 6.0 compat SSL URL.
         if (version_compare($this->whmcsVersion, '7.0.0', '<') && !empty($CONFIG['SystemSSLURL'])) {
             $whmcsUrl = $CONFIG['SystemSSLURL'];
         }
 
-        // Don't set callback when developing
+        // Don't set callback when developing.
         if (array_key_exists('develop', $this->gatewayParams) && $this->gatewayParams['develop'] == "on") {
-            return;
+            return null;
         }
 
-        // Build URL
+        // Build URL.
         return "{$whmcsUrl}/modules/gateways/callback/mollie.php";
     }
 
@@ -168,8 +168,8 @@ abstract class ActionBase
     /**
      * Check for pending transactions
      *
-     * @param int $invoiceId Invoice ID
-     * @return bool
+     * @param integer $invoiceId Invoice ID.
+     * @return boolean
      */
     protected function hasPendingTransactions($invoiceId)
     {
@@ -182,8 +182,8 @@ abstract class ActionBase
     /**
      * Check for failed transactions
      *
-     * @param int $invoiceId Invoice ID
-     * @return bool
+     * @param integer $invoiceId Invoice ID.
+     * @return boolean
      */
     protected function hasFailedTransactions($invoiceId)
     {
@@ -196,18 +196,19 @@ abstract class ActionBase
     /**
      * Set transaction status
      *
-     * @param int $invoiceId Invoice ID
-     * @param string $status Status of transaction, failed or pending
-     * @param string $transactionId Transaction ID when pending
+     * @param integer $invoiceId     Invoice ID.
+     * @param string  $status        Status of transaction, failed or pending.
+     * @param string  $transactionId Transaction ID when pending.
+     * @return void
      */
     protected function updateTransactionStatus($invoiceId, $status, $transactionId = null)
     {
-        // Check for existing transaction
+        // Check for existing transaction.
         $exists = Capsule::table('mod_mollie_transactions')
             ->where('invoiceid', $invoiceId)
             ->count();
 
-        // Update transaction status
+        // Update transaction status.
         if ($exists) {
             Capsule::table('mod_mollie_transactions')
                 ->where('invoiceid', $invoiceId)
@@ -230,8 +231,9 @@ abstract class ActionBase
     /**
      * Log transaction
      *
-     * @param string $description Transaction description
-     * @param string $status Transaction status
+     * @param string $description Transaction description.
+     * @param string $status      Transaction status.
+     * @return void
      */
     protected function logTransaction($description, $status = 'Success')
     {
@@ -253,14 +255,14 @@ abstract class ActionBase
     {
         global $_LANG;
 
-        // Set locale
+        // Set locale.
         putenv('LC_ALL='. $_LANG['locale']);
         setlocale(LC_ALL, $_LANG['locale']);
 
-        // Bind text domain
+        // Bind text domain.
         bindtextdomain($this->textDomain, __DIR__ . '/lang');
 
-        // Create database
+        // Create database.
         if (!Capsule::schema()->hasTable('mod_mollie_transactions')) {
             Capsule::schema()->create('mod_mollie_transactions', function ($table) {
                 $table->increments('id');
@@ -278,11 +280,11 @@ abstract class ActionBase
             });
         }
 
-        // Check API key
+        // Check API key.
         if (!empty($this->gatewayParams)) {
             $apiKey = $this->sandbox ? $this->gatewayParams['test_api_key'] : $this->gatewayParams['live_api_key'];
 
-            // Return true if API key is entered for current mode
+            // Return true if API key is entered for current mode.
             return !empty($apiKey);
         }
 
@@ -291,6 +293,7 @@ abstract class ActionBase
 
     /**
      * Run action
+     * @return void
      */
     abstract public function run();
 }

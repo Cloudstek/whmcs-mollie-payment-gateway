@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Mollie Payment Gateway
  * @version 1.0.0
@@ -11,7 +10,6 @@ use Mollie\API\Mollie;
 
 /**
  * Refund action
- * @see ActionBase.php
  */
 class Refund extends ActionBase
 {
@@ -26,16 +24,16 @@ class Refund extends ActionBase
 
     /**
      * Refund action constructor
-     * @param array $params Refund action parameters
+     * @param array $params Refund action parameters.
      */
     public function __construct(array $params)
     {
         parent::__construct($params);
 
-        // Transaction ID
+        // Transaction ID.
         $this->transactionId = $params['transid'];
 
-        // Refund amount and currency
+        // Refund amount and currency.
         $this->refundAmount = $params['amount'];
         $this->refundCurrency = $params['currency'];
     }
@@ -43,14 +41,14 @@ class Refund extends ActionBase
     /**
      * Generate status message
      *
-     * @param string $status
-     * @param string $message Status message
-     * @param mixed $data Raw data to append to message
+     * @param string     $status  Status message type.
+     * @param string     $message Status message content.
+     * @param array|null $data    Additional data to include.
      * @return array
      */
-    private function statusMessage($status, $message, $data = null)
+    private function statusMessage($status, $message, array $data = null)
     {
-        // Build message
+        // Build message.
         $msg = array(
             'status' => $status,
             'rawdata' => array(
@@ -58,7 +56,7 @@ class Refund extends ActionBase
             )
         );
 
-        // Merge with additional data
+        // Merge with additional data.
         if (!empty($data)) {
             $msg['rawdata'] = array_merge($msg['rawdata'], $data);
         }
@@ -72,7 +70,7 @@ class Refund extends ActionBase
      */
     public function run()
     {
-        // Initialize
+        // Initialize.
         if (!$this->initialize()) {
             return $this->statusMessage(
                 'error',
@@ -80,17 +78,17 @@ class Refund extends ActionBase
             );
         }
 
-        // Get API key
+        // Get API key.
         $apiKey = $this->getApiKey();
 
         try {
-            // Mollie API
+            // Mollie API.
             $mollie = new Mollie($apiKey);
 
-            // Create refund
+            // Create refund.
             $refund = $mollie->payment($this->transactionId)->refund()->create($this->refundAmount);
 
-            // Return status message
+            // Return status message.
             return $this->statusMessage(
                 'success',
                 "Successfully refunded {$this->refundCurrency} {$this->refundAmount} of {$this->transactionId}",
