@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Mollie Payment Gateway
  * @version 1.0.0
@@ -11,6 +10,7 @@ require_once __DIR__ . '/../../../init.php';
 require_once __DIR__ . '/../mollie/vendor/autoload.php';
 
 use Mollie\API\Mollie;
+use Mollie\API\Model\Payment;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
@@ -35,17 +35,17 @@ class Callback
     {
         global $whmcs;
 
-        // Load WHMCS functions
+        // Load WHMCS functions.
         $whmcs->load_function("gateway");
         $whmcs->load_function("invoice");
 
-        // Store WHMCS version
+        // Store WHMCS version.
         $this->whmcsVersion = $whmcs->get_config('Version');
 
-        // Gateway parameters
+        // Gateway parameters.
         $this->params = getGatewayVariables('mollie');
 
-        // Sandbox
+        // Sandbox.
         $this->sandbox = $this->params['sandbox'] == 'on';
     }
 
@@ -55,8 +55,8 @@ class Callback
      * WHMCS v6 uses an older version of Eloquent. In v7 it has been replaced by a newer version which deprecates pluck
      * and causes different behaviour. Instead value is used, which does the same as the old pluck method.
      *
-     * @param QueryBuilder $query
-     * @param string $column
+     * @param QueryBuilder $query  Query to execute.
+     * @param string       $column Column to get the value from.
      * @return mixed
      */
     private function pluck(QueryBuilder $query, $column)
@@ -74,8 +74,9 @@ class Callback
      * Log a transaction in the gateway log and prepend the sandbox string when we're using sandbox mode. This makes it
      * easier to find transactions in the gateway log when debugging.
      *
-     * @param string $description Transaction description
-     * @param string $status Transaction status
+     * @param string $description Transaction description.
+     * @param string $status      Transaction status.
+     * @return void
      */
     private function logTransaction($description, $status = 'Success')
     {
@@ -102,28 +103,29 @@ class Callback
     /**
      * Handle paid transaction
      *
-     * @param int $invoiceId Invoice ID
-     * @param \Mollie\API\Model\Payment $transaction Transaction
+     * @param integer $invoiceId   Invoice ID.
+     * @param Payment $transaction Transaction.
+     * @return void
      */
-    private function handlePaid($invoiceId, $transaction)
+    private function handlePaid($invoiceId, Payment $transaction)
     {
-        // Quit if transaction exists
+        // Quit if transaction exists.
         checkCbTransID($transaction->id);
 
-        // Log transaction
+        // Log transaction.
         $this->logTransaction(
             "Payment {$transaction->id} completed successfully - invoice {$invoiceId}.",
             'Success'
         );
 
-        // Add payment
+        // Add payment.
         addInvoicePayment(
-            $invoiceId,                         // Invoice ID
-            $transaction->id,                   // Transaction ID
-            $transaction->amount,               // Transaction amount
-            0.00,                               // Transaction fees
-            $this->params['paymentmethod'],     // Payment method
-            false                               // Don't send an email (false to send, true to not send, lol!)
+            $invoiceId,
+            $transaction->id,
+            $transaction->amount,
+            0.00,
+            $this->params['paymentmethod'],
+            false
         );
     }
 
@@ -133,42 +135,43 @@ class Callback
      * Charge back happens when a customer has paid the invoice but has charged it back. This marks the invoice unpaid
      * again and sends an email to the customer that the transaction has been charged back.
      *
-     * @param int $invoiceId Invoice ID
-     * @param \Mollie\API\Model\Payment $transaction Transaction
+     * @param integer $invoiceId   Invoice ID.
+     * @param Payment $transaction Transaction.
+     * @return void
      */
-    private function handleChargedBack($invoiceId, $transaction)
+    private function handleChargedBack($invoiceId, Payment $transaction)
     {
-        // Get invoice user ID
+        // Get invoice user ID.
         $userId = $this->pluck(
             Capsule::table('tblinvoices')
                 ->where('id', $invoiceId),
             'userid'
         );
 
-        // Set invoice unpaid
+        // Set invoice unpaid.
         Capsule::table('tblinvoices')
             ->where('id', $invoiceId)
-            ->update([
+            ->update(array(
                 'status' => 'Unpaid'
-            ]);
+            ));
 
-        // Transaction description
+        // Transaction description.
         $transDescription = "Payment {$transaction->id} charged back by customer - invoice {$invoiceId}.";
 
-        // Log transaction
+        // Log transaction.
         $this->logTransaction($transDescription, 'Charged Back');
 
-        // Add transaction
+        // Add transaction.
         addTransaction(
-            $userId,                            // User ID
-            0,                                  // Currency ID (0 to use user default)
-            $transDescription,                  // Transaction description
-            0,                                  // Amount in
-            0,                                  // Transaction fees
-            $transaction->amount,               // Amount out
-            $this->params['paymentmethod'],     // Payment method
-            $transaction->id,                   // Transaction ID
-            $invoiceId                          // Invoice ID
+            $userId,
+            0,
+            $transDescription,
+            0,
+            0,
+            $transaction->amount,
+            $this->params['paymentmethod'],
+            $transaction->id,
+            $invoiceId
         );
     }
 
@@ -177,11 +180,12 @@ class Callback
      *
      * If no API keys have been entered, we cannot handle any payments and we can skip initialisation steps.
      *
-     * @return bool
+     * @return boolean
      */
     public function isActive()
     {
-        return !empty($this->getApiKey());
+        $apiKey = $this->getApiKey();
+        return !empty($apiKey);
     }
 
     /**
@@ -191,41 +195,43 @@ class Callback
      * transaction that has changed status. It's up to us to get the transaction by the id provided and handle it
      * according to its new status.
      *
-     * @param int|null $transId Mollie transaction ID to process
+     * @param integer|null $transId Mollie transaction ID to process.
+     * @throws \Exception Invoice ID is missing from transaction metadata.
+     * @return void
      */
     public function process($transId)
     {
-        // Don't do anything if we're not active
+        // Don't do anything if we're not active.
         if (!$this->isActive()) {
             return;
         }
 
-        // API key
+        // API key.
         $apiKey = $this->getApiKey();
 
-        // Mollie API instance
+        // Mollie API instance.
         $mollie = new Mollie($apiKey);
 
         try {
-            // Get transaction
+            // Get transaction.
             $transaction = $mollie->payment($transId)->get();
 
-            // Get invoice ID from transaction metadata
+            // Get invoice ID from transaction metadata.
             $invoiceId = $transaction->metadata->whmcs_invoice;
 
             if (empty($invoiceId)) {
                 throw new \Exception('Invoice ID is missing from transaction metadata');
             }
 
-            // Validate invoice ID
+            // Validate invoice ID.
             checkCbInvoiceID($invoiceId, $this->params['name']);
 
-            // Allow manually calling callback to set payment status with test mode payments
+            // Allow manually calling callback to set payment status with test mode payments.
             if ($this->sandbox && $transaction->mode == "test" && !empty($_GET['status'])) {
                 $transaction->status = $_GET['status'];
             }
 
-            // Handle transaction status
+            // Handle transaction status.
             switch ($transaction->status) {
                 case "paid":
                     $this->handlePaid($invoiceId, $transaction);
@@ -235,14 +241,14 @@ class Callback
                     break;
             }
 
-            // Remove pending payment
+            // Remove pending payment.
             Capsule::table('mod_mollie_transactions')
                 ->where('invoiceid', $invoiceId)
                 ->delete();
         } catch (\Exception $ex) {
             $exMessage = $ex->getMessage();
 
-            // Log error
+            // Log error.
             $this->logTransaction(
                 "Payment {$transId} failed with an error - {$exMessage}.",
                 'Error'
@@ -251,22 +257,34 @@ class Callback
     }
 }
 
-// Check our transaction ID
+// Check our transaction ID.
 if (empty($_POST['id'])) {
     die();
 }
 
-// Initialize callback
+// Initialize callback.
 $cb = new Callback();
 
-// Check if payment gateway active
+// Check if payment gateway active.
 if (!$cb->isActive()) {
-    http_response_code(501);
-    die('Gateway not activated.');
+    // Get protocol.
+    $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
+
+    // Set headers.
+    header("{$protocol} 503 Service Unavailable");
+    header('Content-type: application/json');
+
+    // Show JSON error message.
+    echo json_encode(array(
+        'status' => 'error',
+        'message' => 'Gateway not activated. Please try again later.'
+    ));
+
+    exit;
 }
 
-// Process transaction
+// Process transaction.
 $cb->process($_POST['id']);
 
-// Make sure we send no output
+// Make sure we send no output.
 exit;
