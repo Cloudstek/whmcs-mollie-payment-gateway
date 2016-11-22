@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mollie Payment Gateway\n"
-"POT-Creation-Date: 2016-11-21 22:47+0100\n"
+"POT-Creation-Date: 2016-11-22 01:34+0100\n"
 "PO-Revision-Date: 2016-09-25 16:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: Cloudstek <info@cloudstek.nl>\n"
@@ -42,15 +42,15 @@ msgstr ""
 msgid "Enable sandbox mode with test API key. No real transactions will be made."
 msgstr ""
 
-#: mollie/AdminStatus.php:65
+#: mollie/AdminStatus.php:62
 msgid "Please enter your API key(s) to use this payment gateway."
 msgstr ""
 
-#: mollie/AdminStatus.php:85
+#: mollie/AdminStatus.php:82
 msgid "There is a payment pending for this invoice. Status will be automatically updated once a confirmation is received from Mollie."
 msgstr ""
 
-#: mollie/AdminStatus.php:97
+#: mollie/AdminStatus.php:94
 msgid "Automatic payment for this invoice has failed. Please check the gateway logs for details."
 msgstr ""
 
@@ -58,10 +58,10 @@ msgstr ""
 msgid "Your payment is currently pending and will be processed automatically."
 msgstr ""
 
-#: mollie/Link.php:141
+#: mollie/Link.php:145
 msgid "This payment gateway is currently disabled. Please contact the administrator."
 msgstr ""
 
-#: mollie/Link.php:209 mollie/Link.php:216
+#: mollie/Link.php:213 mollie/Link.php:220
 msgid "Error occurred, please select a different payment method or try again later."
 msgstr ""

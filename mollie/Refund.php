@@ -51,12 +51,12 @@ class Refund extends ActionBase
     private function statusMessage($status, $message, $data = null)
     {
         // Build message
-        $msg = [
+        $msg = array(
             'status' => $status,
-            'rawdata' => [
+            'rawdata' => array(
                 'message' => $message
-            ]
-        ];
+            )
+        );
 
         // Merge with additional data
         if (!empty($data)) {

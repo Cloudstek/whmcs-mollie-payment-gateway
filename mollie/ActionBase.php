@@ -112,19 +112,19 @@ abstract class ActionBase
         if ($exists) {
             Capsule::table('mod_mollie_customers')
                 ->where('clientid', $clientId)
-                ->update([
+                ->update(array(
                     'customerid' => encrypt($customerId)
-                ]);
+                ));
 
             return;
         }
 
         // Insert customer ID
         Capsule::table('mod_mollie_customers')
-            ->insert([
+            ->insert(array(
                 'clientid' => $clientId,
                 'customerid' => encrypt($customerId)
-            ]);
+            ));
     }
 
     /**
@@ -211,20 +211,20 @@ abstract class ActionBase
         if ($exists) {
             Capsule::table('mod_mollie_transactions')
                 ->where('invoiceid', $invoiceId)
-                ->update([
+                ->update(array(
                     'transid'   => $transactionId,
                     'status'    => $status
-                ]);
+                ));
 
             return;
         }
 
         Capsule::table('mod_mollie_transactions')
-            ->insert([
+            ->insert(array(
                 'invoiceid' => $invoiceId,
                 'transid'   => $transactionId,
                 'status'    => $status
-            ]);
+            ));
     }
 
     /**

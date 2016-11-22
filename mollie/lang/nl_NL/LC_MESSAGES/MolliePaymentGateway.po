@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mollie Payment Gateway\n"
-"POT-Creation-Date: 2016-11-21 22:47+0100\n"
-"PO-Revision-Date: 2016-11-21 22:47+0100\n"
+"POT-Creation-Date: 2016-11-22 01:34+0100\n"
+"PO-Revision-Date: 2016-11-22 01:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: Cloudstek <info@cloudstek.nl>\n"
 "Language: nl\n"
@@ -44,11 +44,11 @@ msgstr ""
 "Schakel sandbox modus in met de test API sleutel. Er worden geen echte "
 "transacties gedaan."
 
-#: mollie/AdminStatus.php:65
+#: mollie/AdminStatus.php:62
 msgid "Please enter your API key(s) to use this payment gateway."
 msgstr "Voer uw API sleutel(s) in om deze gateway te gebruiken."
 
-#: mollie/AdminStatus.php:85
+#: mollie/AdminStatus.php:82
 msgid ""
 "There is a payment pending for this invoice. Status will be automatically "
 "updated once a confirmation is received from Mollie."
@@ -56,7 +56,7 @@ msgstr ""
 "Er is een betaling in behandeling voor deze factuur. Status zal automatisch "
 "bijgewerkt worden zodra een bevestiging is ontvangen van Mollie."
 
-#: mollie/AdminStatus.php:97
+#: mollie/AdminStatus.php:94
 msgid ""
 "Automatic payment for this invoice has failed. Please check the gateway logs "
 "for details."
@@ -69,14 +69,14 @@ msgid "Your payment is currently pending and will be processed automatically."
 msgstr ""
 "Uw betaling is momenteel in behandeling en zal automatisch worden verwerkt."
 
-#: mollie/Link.php:141
+#: mollie/Link.php:145
 msgid ""
 "This payment gateway is currently disabled. Please contact the administrator."
 msgstr ""
 "Deze betalingsmogelijkheid is momenteel niet beschikbaar. Neemt u a.u.b. "
 "contact op met de beheerder."
 
-#: mollie/Link.php:209 mollie/Link.php:216
+#: mollie/Link.php:213 mollie/Link.php:220
 msgid ""
 "Error occurred, please select a different payment method or try again later."
 msgstr ""

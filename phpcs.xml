@@ -1,8 +1,22 @@
 <?xml version="1.0"?>
 <ruleset name="WHMCS">
+
+    <file>.</file>
+    <exclude-pattern>mollie/vendor/*</exclude-pattern>
+
+    <!-- PSR 1 -->
     <rule ref="PSR1">
         <exclude name="PSR1.Files.SideEffects"/>
     </rule>
 
+    <!-- PSR 2 -->
     <rule ref="PSR2"/>
+
+    <!-- PHPCompatibility -->
+    <config name="installed_paths" value="mollie/vendor/frenck/php-compatibility" />
+    <config name="testVersion" value="5.3-7.1"/>
+
+    <rule ref="PHPCompatibility">
+        <exclude name="PHPCompatibility.PHP.DefaultTimezoneRequired" />
+    </rule>
 </ruleset>

@@ -21,10 +21,10 @@ use Cloudstek\WHMCS\Mollie\Refund as MollieRefund;
  */
 function mollie_MetaData()
 {
-    return [
-        'DisplayName'                   => 'Mollie',
-        'APIVersion'                    => '1.1'
-    ];
+    return array(
+        'DisplayName'   => 'Mollie',
+        'APIVersion'    => '1.1'
+    );
 }
 
 /**
@@ -46,24 +46,24 @@ function mollie_config()
     bindtextdomain($textDomain, __DIR__ . '/mollie/lang');
 
     // Visible options
-    return [
-        'FriendlyName'  => [
+    return array(
+        'FriendlyName'  => array(
             'Type'  => 'System',
             'Value' => 'Mollie'
-        ],
-        'live_api_key'  => [
+        ),
+        'live_api_key'  => array(
             'FriendlyName' => dgettext($textDomain, 'Mollie Live API Key'),
             'Type' => 'text',
             'Size' => '25',
             'Description' => dgettext($textDomain, 'Please enter your live API key.')
-        ],
-        'test_api_key'  => [
+        ),
+        'test_api_key'  => array(
             'FriendlyName' => dgettext($textDomain, 'Mollie Test API Key'),
             'Type' => 'text',
             'Size' => '25',
             'Description' => dgettext($textDomain, 'Please enter your test API key.')
-        ],
-        'sandbox'       => [
+        ),
+        'sandbox'       => array(
             'FriendlyName' => dgettext($textDomain, 'Sandbox Mode'),
             'Type' => 'yesno',
             'Size' => '25',
@@ -71,8 +71,8 @@ function mollie_config()
                 $textDomain,
                 'Enable sandbox mode with test API key. No real transactions will be made.'
             )
-        ]
-    ];
+        )
+    );
 }
 
 /**

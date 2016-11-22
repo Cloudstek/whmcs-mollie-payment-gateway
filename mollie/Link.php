@@ -114,9 +114,13 @@ FORM;
         // Get customer ID or create customer
         if (!$customerId = $this->getCustomerId($this->clientDetails['userid'])) {
             // Create customer ID
-            $customer = $mollie->customer()->create($this->clientDetails['fullname'], $this->clientDetails['email'], [
-                'whmcs_id' => $this->clientDetails['userid']
-            ]);
+            $customer = $mollie->customer()->create(
+                $this->clientDetails['fullname'],
+                $this->clientDetails['email'],
+                array(
+                    'whmcs_id' => $this->clientDetails['userid']
+                )
+            );
 
             // Store customer ID
             $this->setCustomerId($this->clientDetails['userid'], $customer->id);

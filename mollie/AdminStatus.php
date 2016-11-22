@@ -42,14 +42,11 @@ class AdminStatus extends ActionBase
      */
     private function statusMessage($status, $message, $title = null)
     {
-        // Build message
-        $msg = [
+        return array(
             'type' => $status,
             'msg' => $message,
             'title' => empty($title) ? $this->gatewayParams['name'] : $title
-        ];
-
-        return $msg;
+        );
     }
 
     /**

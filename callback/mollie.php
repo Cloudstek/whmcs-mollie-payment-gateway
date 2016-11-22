@@ -148,9 +148,9 @@ class Callback
         // Set invoice unpaid
         Capsule::table('tblinvoices')
             ->where('id', $invoiceId)
-            ->update([
+            ->update(array(
                 'status' => 'Unpaid'
-            ]);
+            ));
 
         // Transaction description
         $transDescription = "Payment {$transaction->id} charged back by customer - invoice {$invoiceId}.";
@@ -181,7 +181,8 @@ class Callback
      */
     public function isActive()
     {
-        return !empty($this->getApiKey());
+        $apiKey = $this->getApiKey();
+        return !empty($apiKey);
     }
 
     /**
@@ -261,8 +262,20 @@ $cb = new Callback();
 
 // Check if payment gateway active
 if (!$cb->isActive()) {
-    http_response_code(501);
-    die('Gateway not activated.');
+    // Get protocol
+    $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
+
+    // Set headers
+    header("{$protocol} 503 Service Unavailable");
+    header('Content-type: application/json');
+
+    // Show JSON error message
+    echo json_encode(array(
+        'status' => 'error',
+        'message' => 'Gateway not activated. Please try again later.'
+    ));
+
+    exit;
 }
 
 // Process transaction
