@@ -4,32 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a5df3aa7dbac0495f6a579dea4a7e18",
-    "content-hash": "7b0ebe7056be2d10e5eed0d536290d12",
+    "hash": "319bfff974b58f685c46b86698f6cae6",
+    "content-hash": "f4722dae3f6e7aab80aee04dc9a2e9ab",
     "packages": [
         {
             "name": "cloudstek/mollie-php-api",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Cloudstek/mollie-php-api.git",
-                "reference": "e4ab7655f8cb5611933aebb02e58b777801686d0"
+                "reference": "f93d56c8b5c5d298957e31774526ffb2e6b43796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Cloudstek/mollie-php-api/zipball/e4ab7655f8cb5611933aebb02e58b777801686d0",
-                "reference": "e4ab7655f8cb5611933aebb02e58b777801686d0",
+                "url": "https://api.github.com/repos/Cloudstek/mollie-php-api/zipball/f93d56c8b5c5d298957e31774526ffb2e6b43796",
+                "reference": "f93d56c8b5c5d298957e31774526ffb2e6b43796",
                 "shasum": ""
             },
             "require": {
                 "lib-curl": "*",
                 "lib-openssl": "*",
                 "nategood/httpful": "^0.2.20",
-                "php": ">=5.6"
+                "php": ">=5.3"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "^0.3.2",
-                "phpunit/phpunit": "^5.4"
+                "frenck/php-compatibility": "^7.0",
+                "phpunit/phpunit": "^5.4",
+                "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
             "autoload": {
@@ -78,7 +80,7 @@
                 "sofortbanking",
                 "subscriptions"
             ],
-            "time": "2016-11-14 16:29:38"
+            "time": "2016-11-22 22:37:53"
         },
         {
             "name": "nategood/httpful",
@@ -222,16 +224,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed"
+                "reference": "9b324f3a1132459a7274a0ace2e1b766ba80930f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
-                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9b324f3a1132459a7274a0ace2e1b766ba80930f",
+                "reference": "9b324f3a1132459a7274a0ace2e1b766ba80930f",
                 "shasum": ""
             },
             "require": {
@@ -296,7 +298,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-09-01 23:53:02"
+            "time": "2016-11-30 04:02:31"
         }
     ],
     "aliases": [],
@@ -307,7 +309,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=5.3"
     },
     "platform-dev": []
 }
