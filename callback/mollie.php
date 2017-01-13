@@ -88,6 +88,34 @@ class Callback
     }
 
     /**
+     * Convert amount (in euros) to invoice currency
+     *
+     * @param integer $invoiceId Invoice ID.
+     * @param float   $amount    Transaction amount.
+     * @return float
+     */
+    private function convertCurrency($invoiceId, $amount)
+    {
+        // Get invoice currency.
+        $invoiceCurrencyId = $this->pluck(
+            Capsule::table('tblinvoices as i')
+                ->join('tblclients as u', 'u.id', '=', 'i.userid')
+                ->join('tblcurrencies as c', 'c.id', '=', 'u.currency')
+                ->where('i.id', $invoiceId),
+            'c.id'
+        );
+
+        // Get euro currency.
+        $euroCurrencyId = $this->pluck(
+            Capsule::table('tblcurrencies')->where('code', 'EUR'),
+            'id'
+        );
+
+        // Return our amount converted to invoice currency.
+        return convertCurrency($amount, $euroCurrencyId, $invoiceCurrencyId);
+    }
+
+    /**
      * Get Mollie API key
      * @return string|null
      */
@@ -112,6 +140,9 @@ class Callback
         // Quit if transaction exists.
         checkCbTransID($transaction->id);
 
+        // Convert paid amount in euros to invoice currency.
+        $amount = $this->convertCurrency($invoiceId, $transaction->amount);
+
         // Log transaction.
         $this->logTransaction(
             "Payment {$transaction->id} completed successfully - invoice {$invoiceId}.",
@@ -122,7 +153,7 @@ class Callback
         addInvoicePayment(
             $invoiceId,
             $transaction->id,
-            $transaction->amount,
+            $amount,
             0.00,
             $this->params['paymentmethod'],
             false
