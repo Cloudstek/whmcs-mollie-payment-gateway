@@ -196,7 +196,7 @@ FORM;
         } catch (RequestException $ex) {
             // Get response.
             $resp = $ex->getResponse();
-
+            
             // Handle customer not found error.
             if ($resp->code == 404) {
                 // Remove customer ID from database.
@@ -205,6 +205,9 @@ FORM;
                 // Refresh the current page.
                 header('Refresh: 0');
             }
+            
+            // Log response.
+            logModuleCall('mollie', 'link', '', $resp->raw_body, $resp->raw_body, array());
 
             return $this->statusMessage(
                 dgettext(
@@ -213,6 +216,9 @@ FORM;
                 )
             );
         } catch (\Exception $ex) {
+            // Log response.
+            logModuleCall('mollie', 'link', '', $ex->getMessage(), $ex->getMessage(), array());
+            
             return $this->statusMessage(
                 dgettext(
                     $this->textDomain,
